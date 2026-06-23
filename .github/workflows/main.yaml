@@ -10,12 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v3
-        with:
-          node-version: '24'
+    - uses: actions/checkout@v4
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '24'
+    - run: npm ci
+    - run: npm run build
+    - run: npm run deploy   # langkah yang mungkin gagal — lihat lognya
 
-      - name: Install Heroku CLI
+    - name: Install Heroku CLI
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
 
