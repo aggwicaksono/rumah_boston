@@ -1,6 +1,13 @@
 FROM python:3.13
-COPY . /app
+
 WORKDIR /app
+COPY . /app
+
 RUN pip install -r requirements.txt
-EXPOSE $PORT
-CMD gunicorn --workers=4 --bind 0.0.0.0:$PORT app:ap
+
+# Beri default PORT, Heroku akan override saat runtime
+ENV PORT=8000
+EXPOSE 8000
+
+# Gunakan shell form agar $PORT di-expand pada runtime (Heroku sets PORT env)
+CMD gunicorn --workers=4 --bind 0.0.0.0:$PORT app:app
