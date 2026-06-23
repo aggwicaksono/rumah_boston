@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          node-version: '24'
 
       - name: Install Heroku CLI
         run: |
